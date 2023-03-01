@@ -13,7 +13,6 @@ public class DecisionFrame extends JFrame {
         setLocation(width/3, height/3);
         setTitle("Decision Frame");
         setUndecorated(true);
-        this.setAlwaysOnTop(true);
         this.add(new DecisionPanel());
         setVisible(true);
     }

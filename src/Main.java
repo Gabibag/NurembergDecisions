@@ -1,17 +1,12 @@
-import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
-
-import static java.lang.System.in;
 
 public class Main {
     static DecisionFrame frame;
     public static ArrayList<Person> people = new ArrayList<>();
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args)  {
         //save the images file and add the images to an arraylist called images
 
         people.add(new Person("testName", "testVerdict", "testSentence", "testCrime", getImage("test-image")));
@@ -20,7 +15,9 @@ public class Main {
 
     }
     public static void newFrame() {
-        frame.dispose();
+        for (JFrame f :DecisionPanel.frames) {
+            f.dispose();
+        }
         frame = new DecisionFrame();
     }
     public static Image getImage(String path) {

@@ -1,10 +1,7 @@
-import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageFilter;
-import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,28 +9,51 @@ public class DecisionPanel extends JPanel {
     Person p;
     public static ArrayList<Person> unusedPeople = new ArrayList<>();
     static Random r = new Random();
+    public static ArrayList<JFrame> frames = new ArrayList<>();
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+        g.drawImage(p.getImage(), 0, 0, this);
+    }
+
     public DecisionPanel() {
         unusedPeople.addAll(Main.people);
+
 
         //create a panel that has two buttons, a place for an image, and a place for text
         this.setLayout(new GridLayout(4, 3));
         p = getPerson();
         //create a new label for each piece of information
         JFrame name = new JFrame();
-        JFrame verdict = new JFrame();
         JFrame crime = new JFrame();
+        JFrame image = new JFrame();
+        frames.add(name);
+        frames.add(crime);
+        System.out.println("a");
+
         JLabel textDecision = new JLabel("<HTML> <h1> DECISION </h1> </HTML>");
         JLabel textFrame = new JLabel("<HTML> <h1>FRAME</h1> </HTML>");
-        JLabel image = new JLabel(new ImageIcon(p.getImage()));
+        JLabel imageIcon = new JLabel(new ImageIcon(p.getImage()));
         image.setSize(10, 10);
         //add these labels to an arrayList
         name.setSize(DecisionFrame.width/6, DecisionFrame.height/9);
-        name.setLocation(DecisionFrame.width/3, ((DecisionFrame.height/3)-name.getHeight()));
+        crime.setSize(DecisionFrame.width/6, DecisionFrame.height/9);
+        image.setSize(DecisionFrame.width/9, DecisionFrame.height/6);
 
         name.setUndecorated(true);
         name.setAlwaysOnTop(true);
-        name.add(new JLabel("<HTML><h1>Name: " + p.getName() + " <h1/></HTML>"));
-        name.setVisible(true);
+        image.setUndecorated(true);
+        crime.setUndecorated(true);
+        crime.setAlwaysOnTop(true);
+        image.setAlwaysOnTop(true);
+
+        name.add(new JLabel("<HTML><h1>Name: a" + p.getName() + " <h1/></HTML>"));
+        crime.add(new JLabel("<HTML><h1>Crime: " + p.getCrime() + " <h1/></HTML>"));
+        image.add(imageIcon);
+//        image.pack();
+        DecisionFrame.animate(DecisionFrame.width/3, DecisionFrame.height/3 - name.getHeight(), "up", name);
+        DecisionFrame.animate(DecisionFrame.width/3 + name.getWidth(), DecisionFrame.height/3 - crime.getHeight(), "up", crime);
+        DecisionFrame.animate(DecisionFrame.width/3 - image.getWidth(), DecisionFrame.height/3, "left", image);
 
         textDecision.setHorizontalAlignment(JLabel.RIGHT);
         textFrame.setHorizontalAlignment(JLabel.LEFT);
@@ -41,7 +61,7 @@ public class DecisionPanel extends JPanel {
         textFrame.setFont(new Font("Arial", Font.BOLD, 10));
         this.add(textDecision);
         this.add(textFrame);
-        this.add(image);
+        this.add(imageIcon);
 
 
 

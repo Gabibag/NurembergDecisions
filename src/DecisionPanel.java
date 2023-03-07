@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -29,6 +27,7 @@ public class DecisionPanel extends JPanel {
         JFrame image = new JFrame();
         frames.add(name);
         frames.add(crime);
+        frames.add(image);
         System.out.println("a");
 
         JLabel textDecision = new JLabel("<HTML> <h1> DECISION </h1> </HTML>");
@@ -71,28 +70,15 @@ public class DecisionPanel extends JPanel {
         JButton death = new JButton("Death Sentence");
         JButton jail = new JButton("Imprisonment");
         //add an on click listener to the buttons
-        death.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        death.addActionListener(e -> {
+            displayActualSentence(p);
+        });
+        jail.addActionListener(e -> {
+            //dispose all frames
+            displayActualSentence(p);
 
-                JDialog dialog = new JDialog();
-                dialog.setSize(Main.frame.getSize().width, Main.frame.getSize().height);
-                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                dialog.setResizable(false);
-                dialog.setLayout(new GridLayout(1, 1));
-                dialog.setLocationRelativeTo(Main.frame);
-                dialog.setLocation(Main.frame.getLocation().x, Main.frame.getLocation().y+10);
-                dialog.add(new Label(p.getSentence()));
-                dialog.setVisible(true);
 
-            }
-        } );
-        jail.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Main.newFrame();
-            }
-        } );
+        });
         //add death and jail buttons to the panel, with death on the left, and jail on the right
         this.add(death);
         this.add(jail);
@@ -117,5 +103,24 @@ public class DecisionPanel extends JPanel {
         //remove the person from the list of unused people
         unusedPeople.remove(randomPerson);
         return person;
+    }
+    public static void disposeAllFrames() {
+        for (JFrame frame : frames) {
+            frame.dispose();
+        }
+    }
+    public static void displayActualSentence(Person p) {
+        JFrame frame = new JFrame();
+        Button ok = new Button("OK");
+        frame.setSize(DecisionFrame.width/3, DecisionFrame.height/3);
+        frame.setAlwaysOnTop(true);
+        frame.add(new JLabel("<HTML><h1>Actual Punishment: " + p.getSentence() + " <h1/></HTML>"));
+        ok.addActionListener(e -> disposeAllFrames());
+        frame.add(ok);
+        frame.setVisible(true);
+        frame.setLayout(new GridLayout(2, 1));
+        frames.add(frame);
+        DecisionFrame.animate(Main.frame.getLocation().x, Main.frame.getLocation().y+frame.getHeight(), "bottom", frame);
+
     }
 }

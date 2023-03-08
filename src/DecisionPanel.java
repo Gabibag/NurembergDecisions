@@ -37,7 +37,7 @@ public class DecisionPanel extends JPanel {
         //add these labels to an arrayList
         name.setSize(DecisionFrame.width/6, DecisionFrame.height/9);
         crime.setSize(DecisionFrame.width/6, DecisionFrame.height/9);
-        image.setSize(DecisionFrame.width/9, DecisionFrame.height/6);
+        image.setSize(DecisionFrame.height/6, DecisionFrame.width/6);
 
         name.setUndecorated(true);
         name.setAlwaysOnTop(true);
@@ -115,12 +115,15 @@ public class DecisionPanel extends JPanel {
         frame.setSize(DecisionFrame.width/3, DecisionFrame.height/3);
         frame.setAlwaysOnTop(true);
         frame.add(new JLabel("<HTML><h1>Actual Punishment: " + p.getSentence() + " <h1/></HTML>"));
-        ok.addActionListener(e -> disposeAllFrames());
+        ok.addActionListener(e -> {
+            disposeAllFrames();
+            DecisionPanel.frames.add(new DecisionFrame());
+        });
         frame.add(ok);
         frame.setVisible(true);
         frame.setLayout(new GridLayout(2, 1));
         frames.add(frame);
-        DecisionFrame.animate(Main.frame.getLocation().x, Main.frame.getLocation().y+frame.getHeight(), "bottom", frame);
+        DecisionFrame.animate(Main.frame.getLocation().x, Main.frame.getLocation().y+frame.getHeight(), "top", frame);
 
     }
 }

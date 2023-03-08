@@ -8,10 +8,11 @@ public class Main {
     public static ArrayList<Person> people = new ArrayList<>();
     public static void main(String[] args)  {
         //save the images file and add the images to an arraylist called images
-
         people.add(new Person("testName", "testVerdict", "testSentence", "testCrime", getImage("test-image")));
         people.add(new Person("Rudolf Hess", "Guilty", "Life in Prison", "Top man in Nazi Party", getImage("hess")));
         frame = new DecisionFrame();
+        DecisionPanel.frames.add(frame);
+
 
     }
     public static void newFrame() {

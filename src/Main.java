@@ -6,9 +6,13 @@ public class Main {
     static DecisionFrame frame;
     public static ArrayList<Person> people = new ArrayList<>();
     public static void main(String[] args)  {
+        Crime FreezingExperiment = new Crime("Investigated treatments for persons who had been severely chilled, using prisoners at the Dachau camp as test subjects.");
+        Crime SkeletonConstruction = new Crime("Made a complete skeleton collection for an anatomical research project at the Reich University of Strasbourg using one hundred twelve Jews at Auschwitz.");
         //save the images file and add the images to an arraylist called images
-        people.add(new Person("Hermann Becker-Freyseng", new Verdict(false, 20),  "Conducted primarily for the German air force to investigate treatments for persons who had been severely chilled, using prisoners at the Dachau camp.", getImage("test-image")));
+        people.add(new Person("Hermann Becker-Freyseng", new Verdict(false, 20),  FreezingExperiment.toString(), getImage("becker")));
         people.add(new Person("Rudolf Hess", new Verdict(false, 99), "Top man in Nazi Party", getImage("hess")));
+        people.add(new Person("Karl Brandt", new Verdict(true, "hanging"), SkeletonConstruction.toString(), getImage("brandt")));
+        people.add(new Person("Karl Brandt", new Verdict(true, "hanging"), SkeletonConstruction.toString(), getImage("brandt")));
         frame = new DecisionFrame();
         DecisionPanel.frames.add(frame);
 

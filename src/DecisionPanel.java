@@ -41,8 +41,8 @@ public class DecisionPanel extends JPanel {
         crime.setAlwaysOnTop(true);
         image.setAlwaysOnTop(true);
 
-        name.add(new JLabel("<HTML><h1>Name: a" + p.getName() + " <h1/></HTML>"));
-        crime.add(new JLabel("<HTML><h1>Crime: " + p.getCrime() + " <h1/></HTML>"));
+        name.add(new JLabel("<HTML><h1>Name: " + p.getName() + " <h1/></HTML>"));
+        crime.add(new JLabel("<HTML><span>Crime: " + p.getCrime() + " <span/></HTML>"));
         image.add(imageIcon);
 //        image.pack();
         DecisionFrame.animate(DecisionFrame.width/3, DecisionFrame.height/3 - name.getHeight(), "up", name);

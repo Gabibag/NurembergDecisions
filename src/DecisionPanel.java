@@ -1,5 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,7 +30,6 @@ public class DecisionPanel extends JPanel {
         frames.add(name);
         frames.add(crime);
         frames.add(image);
-        System.out.println("a");
 
         JLabel textDecision = new JLabel("<HTML> <h1> DECISION </h1> </HTML>");
         JLabel textFrame = new JLabel("<HTML> <h1>FRAME</h1> </HTML>");
@@ -45,9 +51,27 @@ public class DecisionPanel extends JPanel {
         crime.add(new JLabel("<HTML><span>Crime: " + p.getCrime() + " <span/></HTML>"));
         image.add(imageIcon);
 //        image.pack();
+
+
         DecisionFrame.animateMoving(DecisionFrame.width / 3, DecisionFrame.height / 3 - name.getHeight(), "up", name);
-        DecisionFrame.animateMoving(DecisionFrame.width / 3 + name.getWidth(), DecisionFrame.height / 3 - crime.getHeight(), "up", crime);
-        DecisionFrame.animateMoving(DecisionFrame.width / 3 - image.getWidth(), DecisionFrame.height / 3, "left", image);
+        DecisionFrame.animateMoving(DecisionFrame.width / 3 + name.getWidth(),
+                                    DecisionFrame.height / 3 - crime.getHeight(), "up", crime);
+        DecisionFrame.animateMoving(DecisionFrame.width / 3 - image.getWidth(), DecisionFrame.height / 3, "left",
+                                    image);
+        if (p.getExcuse() != null) {
+
+            //create a new frame for the excuse to the right of the decision frame similar to that of the one above
+            JFrame excuseFrame = new JFrame();
+            excuseFrame.setAlwaysOnTop(true);
+            excuseFrame.add(new JLabel("<HTML><span>" + p.getExcuse() + "<span/> </HTML>", SwingConstants.CENTER));
+            excuseFrame.setUndecorated(true);
+            excuseFrame.setLocation(DecisionFrame.width / 3 + name.getWidth() + crime.getWidth(),
+                                    DecisionFrame.height / 3);
+            frames.add(excuseFrame);
+            DecisionFrame.animateScale(DecisionFrame.width / 6, DecisionFrame.height / 9, excuseFrame);
+
+
+        }
 
         textDecision.setHorizontalAlignment(JLabel.RIGHT);
         textFrame.setHorizontalAlignment(JLabel.LEFT);
@@ -69,8 +93,48 @@ public class DecisionPanel extends JPanel {
         });
         jail.addActionListener(e -> {
             //dispose all frames
-            displayActualSentence(p);
+            //create a new frame with a drop down menu that has the options of 1 year, 5 years, 10 years, 20 years, 50 years, and life
+            JFrame jailFrame = new JFrame();
+            frames.add(jailFrame);
+            jailFrame.setAlwaysOnTop(true);
+            jailFrame.setUndecorated(true);
+            jailFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3);
+            //create a jlabel prompting the user as h1 text and style it as center aligned
+            jailFrame.setLayout(new GridLayout(3, 1));
+            JLabel prompt = new JLabel("<HTML><div style='text-align: center;'> <h1>How long should " + p.getName() +
+                                       " have be imprisoned for?<h1/> <div/> </HTML>", SwingConstants.CENTER);
+            jailFrame.add(prompt);
+            String[] options = {"1 year", "5 years", "10 years", "20 years", "50 years", "Life"};
+            JComboBox<String> jailTime = new JComboBox<>(options);
 
+            jailFrame.add(jailTime);
+            Button ok = new Button("OK");
+            ok.addActionListener(e1 -> {
+                //depending on the option selected, create a new verdict in the format of (false, int yearNum) with corresponding time and don't save it
+                int yearNum = switch (jailTime.getSelectedIndex()) {
+                    case 0 -> 1;
+                    case 1 -> 5;
+                    case 2 -> 10;
+                    case 3 -> 20;
+                    case 4 -> 50;
+                    case 5 -> 99;
+                    default -> 0;
+                };
+                Verdict verdict = new Verdict(false, yearNum);
+                try {
+                    Path path = Paths.get("src/verdicts.txt");
+                    String verdictText = p.getName() + ": " + verdict.getSentence() + " 1\n";
+                    Files.write(path, (verdictText).getBytes(), StandardOpenOption.APPEND);
+
+                } catch (IOException ex) {
+                    System.out.println("An error occurred.");
+                }
+                displayActualSentence(p);
+
+
+            });
+            jailFrame.add(ok);
+            DecisionFrame.animateScale(DecisionFrame.width / 3, DecisionFrame.height / 3, jailFrame);
 
         });
         //add death and jail buttons to the panel, with death on the left, and jail on the right
@@ -115,9 +179,27 @@ public class DecisionPanel extends JPanel {
         sentenceFrame.add(ok);
         sentenceFrame.setLayout(new GridLayout(2, 1));
         sentenceFrame.setUndecorated(true);
-        sentenceFrame.setLocation(DecisionFrame.width/3, DecisionFrame.height/3);
+        sentenceFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3);
         frames.add(sentenceFrame);
         DecisionFrame.animateScale(DecisionFrame.width / 3, DecisionFrame.height / 3, sentenceFrame);
 
+    }
+
+    public static int numOfOccurrence(String verdict) {
+        //cycle through the txt file verdicts.txt and count the number of times the verdict appears
+        int count = 0;
+        String line;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("src/verdicts.txt"));
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(verdict)) {
+                    count++;
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 }

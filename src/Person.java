@@ -5,6 +5,15 @@ public class Person {
     private final String name;
     private final Verdict verdict;
     private final Crime[] crime;
+
+    private String excuse;
+
+    public Person(String name, Verdict verdict, Crime[] crime, Image image) {
+        this.name = name;
+        this.verdict = verdict;
+        this.crime = crime;
+        this.image = image;
+    }
     Random Random = new Random();
     private Image image;
 
@@ -16,11 +25,16 @@ public class Person {
         this.image = image;
     }
 
-    public Person(String name, Verdict verdict, Crime[] crime, Image image) {
+    public Person(String name, Verdict verdict, Crime[] crime, Image image, String excuse) {
         this.name = name;
         this.verdict = verdict;
         this.crime = crime;
         this.image = image;
+        this.excuse = excuse;
+    }
+
+    public String getExcuse() {
+        return excuse;
     }
 
     public String getName() {

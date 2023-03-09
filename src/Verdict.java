@@ -16,6 +16,6 @@ public class Verdict {
     }
 
     public String getSentence(){
-        return (this.isDeathSentence) ? "Death Sentence by " + wayKilled : (this.yearsInJail==99 ? "Lifetime" : this.yearsInJail + " years") + " in jail";
+        return (this.isDeathSentence) ? "a death sentence by " + wayKilled : (this.yearsInJail==99 ? "a lifetime" : this.yearsInJail + " years") + " in jail";
     }
 }

@@ -1,9 +1,11 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Person {
     private final String name;
     private final Verdict verdict;
-    private final String crime;
+    private final Crime[] crime;
+    Random Random = new Random();
     private Image image;
 
     public Image getImage() {
@@ -14,7 +16,7 @@ public class Person {
         this.image = image;
     }
 
-    public Person(String name, Verdict verdict, String crime, Image image) {
+    public Person(String name, Verdict verdict, Crime[] crime, Image image) {
         this.name = name;
         this.verdict = verdict;
         this.crime = crime;
@@ -29,8 +31,8 @@ public class Person {
         return verdict;
     }
 
-    public String getCrime() {
-        return crime;
+    public Crime getCrime() {
+        return crime[Random.nextInt(crime.length)];
     }
 }
 

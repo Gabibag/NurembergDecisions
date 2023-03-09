@@ -108,7 +108,7 @@ public class DecisionPanel extends JPanel {
         Button ok = new Button("OK");
         frame.setSize(DecisionFrame.width/3, DecisionFrame.height/3);
         frame.setAlwaysOnTop(true);
-        frame.add(new JLabel("<HTML><h1>" + p.getVerdict().getSentence() + " <h1/></HTML>"));
+        frame.add(new JLabel("<HTML><div style='text-align: center;'> <h1>" +p.getName() + " received " + p.getVerdict().getSentence() + "<h1/> <div/> </HTML>",SwingConstants.CENTER));
         ok.addActionListener(e -> {
             disposeAllFrames();
             DecisionPanel.frames.add(new DecisionFrame());

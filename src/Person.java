@@ -2,10 +2,9 @@ import java.awt.*;
 
 public class Person {
     private final String name;
-    private final String verdict;
-    private final String sentence;
+    private final Verdict verdict;
     private final String crime;
-    private Image image = null;
+    private Image image;
 
     public Image getImage() {
         return image;
@@ -15,10 +14,9 @@ public class Person {
         this.image = image;
     }
 
-    public Person(String name, String verdict, String sentence, String crime, Image image) {
+    public Person(String name, Verdict verdict, String crime, Image image) {
         this.name = name;
         this.verdict = verdict;
-        this.sentence = sentence;
         this.crime = crime;
         this.image = image;
     }
@@ -27,12 +25,8 @@ public class Person {
         return name;
     }
 
-    public String getVerdict() {
+    public Verdict getVerdict() {
         return verdict;
-    }
-
-    public String getSentence() {
-        return sentence;
     }
 
     public String getCrime() {

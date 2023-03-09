@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,19 +7,14 @@ public class Main {
     public static ArrayList<Person> people = new ArrayList<>();
     public static void main(String[] args)  {
         //save the images file and add the images to an arraylist called images
-        people.add(new Person("testName", "testVerdict", "testSentence", "testCrime", getImage("test-image")));
-        people.add(new Person("Rudolf Hess", "Guilty", "Life in Prison", "Top man in Nazi Party", getImage("hess")));
+        people.add(new Person("Hermann Becker-Freyseng", new Verdict(false, 20),  "Conducted primarily for the German air force to investigate treatments for persons who had been severely chilled, using prisoners at the Dachau camp.", getImage("test-image")));
+        people.add(new Person("Rudolf Hess", new Verdict(false, 99), "Top man in Nazi Party", getImage("hess")));
         frame = new DecisionFrame();
         DecisionPanel.frames.add(frame);
 
 
     }
-    public static void newFrame() {
-        for (JFrame f :DecisionPanel.frames) {
-            f.dispose();
-        }
-        frame = new DecisionFrame();
-    }
+
     public static Image getImage(String path) {
         URL imgURL = Main.class.getResource("images/"+path+".jpg");
         if (imgURL == null) {

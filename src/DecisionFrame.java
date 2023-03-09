@@ -107,7 +107,7 @@ public class DecisionFrame extends JFrame {
         //c is the change in position
         //b is the beginning position
         //d is the multiplier
-        System.out.println("d:" + d + " b:" + b + " c:" + c + " result:" + (d + b/c) + (d+b/c < 2 ? ", gets set to 2" : ""));
+//        System.out.println("d:" + d + " b:" + b + " c:" + c + " result:" + (d + b/c) + (d+b/c < 2 ? ", gets set to 2" : ""));
         return Math.max( d + b/c, 2);
 
     }

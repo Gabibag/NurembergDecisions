@@ -8,18 +8,13 @@ public class DecisionPanel extends JPanel {
     public static ArrayList<Person> unusedPeople = new ArrayList<>();
     static Random r = new Random();
     public static ArrayList<JFrame> frames = new ArrayList<>();
-    @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
-        g.drawImage(p.getImage(), 0, 0, this);
-    }
 
     public DecisionPanel() {
         unusedPeople.addAll(Main.people);
 
 
         //create a panel that has two buttons, a place for an image, and a place for text
-        this.setLayout(new GridLayout(4, 3));
+        this.setLayout(new GridLayout(2, 2));
         p = getPerson();
         //create a new label for each piece of information
         JFrame name = new JFrame();
@@ -60,7 +55,6 @@ public class DecisionPanel extends JPanel {
         textFrame.setFont(new Font("Arial", Font.BOLD, 10));
         this.add(textDecision);
         this.add(textFrame);
-        this.add(imageIcon);
 
 
 
@@ -114,7 +108,7 @@ public class DecisionPanel extends JPanel {
         Button ok = new Button("OK");
         frame.setSize(DecisionFrame.width/3, DecisionFrame.height/3);
         frame.setAlwaysOnTop(true);
-        frame.add(new JLabel("<HTML><h1>Actual Punishment: " + p.getSentence() + " <h1/></HTML>"));
+        frame.add(new JLabel("<HTML><h1>" + p.getVerdict().getSentence() + " <h1/></HTML>"));
         ok.addActionListener(e -> {
             disposeAllFrames();
             DecisionPanel.frames.add(new DecisionFrame());

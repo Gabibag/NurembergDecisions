@@ -15,7 +15,7 @@ public class Verdict {
         this.isGuilty = false;
     }
 
-    public String getSentence(){
-        return (this.isDeathSentence) ? "a death sentence by " + wayKilled : (this.yearsInJail==99 ? "a lifetime" : this.yearsInJail + " years") + " in jail";
+    public String getSentence(){//don't add space before
+        return (this.isDeathSentence) ? "a death sentence by " + wayKilled : (this.yearsInJail==99 ? "a lifetime sentence" : "sentence of " + this.yearsInJail + " years") + " in jail";
     }
 }

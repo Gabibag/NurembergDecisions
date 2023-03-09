@@ -45,9 +45,9 @@ public class DecisionPanel extends JPanel {
         crime.add(new JLabel("<HTML><span>Crime: " + p.getCrime() + " <span/></HTML>"));
         image.add(imageIcon);
 //        image.pack();
-        DecisionFrame.animate(DecisionFrame.width/3, DecisionFrame.height/3 - name.getHeight(), "up", name);
-        DecisionFrame.animate(DecisionFrame.width/3 + name.getWidth(), DecisionFrame.height/3 - crime.getHeight(), "up", crime);
-        DecisionFrame.animate(DecisionFrame.width/3 - image.getWidth(), DecisionFrame.height/3, "left", image);
+        DecisionFrame.animateMoving(DecisionFrame.width / 3, DecisionFrame.height / 3 - name.getHeight(), "up", name);
+        DecisionFrame.animateMoving(DecisionFrame.width / 3 + name.getWidth(), DecisionFrame.height / 3 - crime.getHeight(), "up", crime);
+        DecisionFrame.animateMoving(DecisionFrame.width / 3 - image.getWidth(), DecisionFrame.height / 3, "left", image);
 
         textDecision.setHorizontalAlignment(JLabel.RIGHT);
         textFrame.setHorizontalAlignment(JLabel.LEFT);
@@ -104,20 +104,20 @@ public class DecisionPanel extends JPanel {
         }
     }
     public static void displayActualSentence(Person p) {
-        JFrame frame = new JFrame();
+        JFrame sentenceFrame = new JFrame();
         Button ok = new Button("OK");
-        frame.setSize(DecisionFrame.width/3, DecisionFrame.height/3);
-        frame.setAlwaysOnTop(true);
-        frame.add(new JLabel("<HTML><div style='text-align: center;'> <h1>" +p.getName() + " received " + p.getVerdict().getSentence() + "<h1/> <div/> </HTML>",SwingConstants.CENTER));
+        sentenceFrame.setAlwaysOnTop(true);
+        sentenceFrame.add(new JLabel("<HTML><div style='text-align: center;'> <h1>" +p.getName() + " received " + p.getVerdict().getSentence() + "<h1/> <div/> </HTML>",SwingConstants.CENTER));
         ok.addActionListener(e -> {
             disposeAllFrames();
             DecisionPanel.frames.add(new DecisionFrame());
         });
-        frame.add(ok);
-        frame.setVisible(true);
-        frame.setLayout(new GridLayout(2, 1));
-        frames.add(frame);
-        DecisionFrame.animate(Main.frame.getLocation().x, Main.frame.getLocation().y+frame.getHeight(), "top", frame);
+        sentenceFrame.add(ok);
+        sentenceFrame.setLayout(new GridLayout(2, 1));
+        sentenceFrame.setUndecorated(true);
+        sentenceFrame.setLocation(DecisionFrame.width/3, DecisionFrame.height/3);
+        frames.add(sentenceFrame);
+        DecisionFrame.animateScale(DecisionFrame.width / 3, DecisionFrame.height / 3, sentenceFrame);
 
     }
 }

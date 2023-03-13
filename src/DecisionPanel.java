@@ -36,9 +36,9 @@ public class DecisionPanel extends JPanel {
         JLabel imageIcon = new JLabel(new ImageIcon(p.getImage()));
         image.setSize(10, 10);
         //add these labels to an arrayList
-        name.setSize(DecisionFrame.width/6, DecisionFrame.height/9);
-        crime.setSize(DecisionFrame.width/6, DecisionFrame.height/9);
-        image.setSize(DecisionFrame.height/6, DecisionFrame.width/6);
+        name.setSize(DecisionFrame.width / 6, DecisionFrame.height / 9);
+        crime.setSize(DecisionFrame.width / 6, DecisionFrame.height / 9);
+        image.setSize(DecisionFrame.height / 6, DecisionFrame.width / 6);
 
         name.setUndecorated(true);
         name.setAlwaysOnTop(true);
@@ -46,6 +46,9 @@ public class DecisionPanel extends JPanel {
         crime.setUndecorated(true);
         crime.setAlwaysOnTop(true);
         image.setAlwaysOnTop(true);
+        name.setOpacity(0.9f);
+        crime.setOpacity(0.9f);
+        image.setOpacity(0.9f);
 
         name.add(new JLabel("<HTML><h1>Name: " + p.getName() + " <h1/></HTML>"));
         crime.add(new JLabel("<HTML><span>Crime: " + p.getCrime() + " <span/></HTML>"));
@@ -65,6 +68,7 @@ public class DecisionPanel extends JPanel {
             excuseFrame.setAlwaysOnTop(true);
             excuseFrame.add(new JLabel("<HTML><span>" + p.getExcuse() + "<span/> </HTML>", SwingConstants.CENTER));
             excuseFrame.setUndecorated(true);
+            excuseFrame.setOpacity(0.9f);
             excuseFrame.setLocation(DecisionFrame.width / 3 + name.getWidth() + crime.getWidth(),
                                     DecisionFrame.height / 3);
             frames.add(excuseFrame);
@@ -98,6 +102,7 @@ public class DecisionPanel extends JPanel {
             frames.add(jailFrame);
             jailFrame.setAlwaysOnTop(true);
             jailFrame.setUndecorated(true);
+            jailFrame.setOpacity(0.9f);
             jailFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3);
             //create a jlabel prompting the user as h1 text and style it as center aligned
             jailFrame.setLayout(new GridLayout(3, 1));
@@ -180,7 +185,8 @@ public class DecisionPanel extends JPanel {
         }
     }
     public static void displayActualSentence(Person p) {
-        JFrame sentenceFrame = new JFrame();
+        JFrame sentenceFrame = new JFrame(
+        );
         Button ok = new Button("OK");
         sentenceFrame.setAlwaysOnTop(true);
         sentenceFrame.add(new JLabel("<HTML><div style='text-align: center;'> <h1>" + p.getName() + " received " +
@@ -191,12 +197,15 @@ public class DecisionPanel extends JPanel {
         });
         sentenceFrame.add(ok);
         sentenceFrame.setLayout(new GridLayout(2, 1));
+
         sentenceFrame.setUndecorated(true);
+        sentenceFrame.setOpacity(0.9f);
         sentenceFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3);
         frames.add(sentenceFrame);
         //create another Jframe telling the user how many times the verdict has been given using the numOfOccurrence method. only display if the verdict has been given more than 1 time, and give it in the format "This same verdict has been chosen (x) times"
         if (numOfOccurrence(p.getName() + ": " + p.getVerdict().getSentence()) > 1) {
             JFrame otherStats = new JFrame();
+            otherStats.setOpacity(0.9f);
             otherStats.setAlwaysOnTop(true);
             otherStats.add(new JLabel("<HTML><div style='text-align: center;'> <h1>This same verdict has been chosen " +
                                       numOfOccurrence(p.getName() + ": " + p.getVerdict().getSentence()) +

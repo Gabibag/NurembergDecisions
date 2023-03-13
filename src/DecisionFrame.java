@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.RoundRectangle2D;
 
 
 public class DecisionFrame extends JFrame {
@@ -14,14 +16,23 @@ public class DecisionFrame extends JFrame {
         //get dimensions of screen
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(width/3, height/3);
-        setLocation(width/3, height/3);
+        setSize(width / 3, height / 3);
+        setLocation(width / 3, height / 3);
         setTitle("Decision Frame");
 
         //make a timer that will change the image every 10 second
 
         setUndecorated(true);
         this.add(new DecisionPanel());
+        //setOpacity(0.5f);
+        this.setOpacity(0.9f);
+//        this.setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 28, 28));
+        Area shape2 = new Area(
+                new RoundRectangle2D.Double(0, this.getHeight() / 2 - 30, this.getWidth(), this.getHeight() / 2, 18,
+                                            18));
+        Area shape1 = new Area(new Rectangle(0, 0, this.getWidth(), this.getHeight() / 2));
+        shape1.add(shape2);
+        this.setShape(shape1);
         setVisible(true);
     }
     public static void animateMoving(int endX, int endY, String from, JFrame frame) {

@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.RoundRectangle2D;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,7 +11,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Random;
-
 public class DecisionPanel extends JPanel {
     Person p;
     public static ArrayList<Person> unusedPeople = new ArrayList<>();
@@ -31,8 +32,8 @@ public class DecisionPanel extends JPanel {
         frames.add(crime);
         frames.add(image);
 
-        JLabel textDecision = new JLabel("<HTML> <h1> DECISION </h1> </HTML>");
-        JLabel textFrame = new JLabel("<HTML> <h1>FRAME</h1> </HTML>");
+        JLabel textDecision = new JLabel("<HTML> <h1> DECISION </h1> </HTML>", JLabel.CENTER);
+        JLabel textFrame = new JLabel("<HTML> <h1>FRAME</h1> </HTML>", JLabel.CENTER);
         JLabel imageIcon = new JLabel(new ImageIcon(p.getImage()));
         image.setSize(10, 10);
         //add these labels to an arrayList
@@ -49,6 +50,35 @@ public class DecisionPanel extends JPanel {
         name.setOpacity(0.9f);
         crime.setOpacity(0.9f);
         image.setOpacity(0.9f);
+        /*
+        * Area shape2 = new Area(
+                new RoundRectangle2D.Double(0, this.getHeight() / 2 - 30, this.getWidth(), this.getHeight() / 2, 18,
+                                            18));
+        Area shape1 = new Area(new Rectangle(0, 0, this.getWidth(), this.getHeight() / 2));
+        shape1.add(shape2);
+        this.setShape(shape1);
+        * */
+        //the code above makes the bottom two corners of the panel rounded, using this code, make the left corners rounded of the image frame, and the top corners of the name and crime frames rounded
+        Area shape2 = new Area(
+                new RoundRectangle2D.Double(0, 0, image.getWidth(), image.getHeight(), 18, 18));
+        Area shape1 = new Area(new Rectangle(image.getWidth() / 2, 0, image.getWidth() / 2, image.getHeight()));
+        shape1.add(shape2);
+        image.setShape(shape1);
+        Area shape3 = new Area(
+                new RoundRectangle2D.Double(0, 0, name.getWidth(), name.getHeight(), 18, 18));
+        Area shape4 = new Area(new Rectangle(0, name.getHeight() / 2, name.getWidth(), name.getHeight() / 2));
+        Area shape7 = new Area(new Rectangle(name.getHeight() / 2, 0, name.getWidth(), name.getHeight() / 2));
+        shape4.add(shape3);
+        shape4.add(shape7);
+        name.setShape(shape4);
+        Area shape5 = new Area(
+                new RoundRectangle2D.Double(0, 0, crime.getWidth(), crime.getHeight(), 18, 18));
+        Area shape6 = new Area(new Rectangle(0, crime.getHeight() / 2, crime.getWidth(), crime.getHeight() / 2));
+        Area shape8 = new Area(new Rectangle(0, 0, name.getWidth() / 2, name.getHeight() / 2));
+        shape6.add(shape5);
+        shape6.add(shape8);
+        crime.setShape(shape6);
+
 
         name.add(new JLabel("<HTML><div style='text-align:center'> <h1>Name: " + p.getName() + " <h1/> <div/></HTML>"));
         crime.add(new JLabel(
@@ -57,9 +87,10 @@ public class DecisionPanel extends JPanel {
 //        image.pack();
 
 
-        DecisionFrame.animateMoving(DecisionFrame.width / 3, DecisionFrame.height / 3 - name.getHeight(), "up", name);
+        DecisionFrame.animateMoving(DecisionFrame.width / 3, (DecisionFrame.height / 3) - crime.getHeight(), "up",
+                                    name);
         DecisionFrame.animateMoving(DecisionFrame.width / 3 + name.getWidth(),
-                                    DecisionFrame.height / 3 - crime.getHeight(), "up", crime);
+                                    (DecisionFrame.height / 3) - name.getHeight(), "up", crime);
         DecisionFrame.animateMoving(DecisionFrame.width / 3 - image.getWidth(), DecisionFrame.height / 3, "left",
                                     image);
         if (p.getExcuse() != null) {
@@ -73,6 +104,11 @@ public class DecisionPanel extends JPanel {
             excuseFrame.setLocation(DecisionFrame.width / 3 + name.getWidth() + crime.getWidth(),
                                     DecisionFrame.height / 3);
             frames.add(excuseFrame);
+            Area shape9 = new Area(
+                    new RoundRectangle2D.Double(0, 0, DecisionFrame.width / 6, DecisionFrame.width / 6, 18, 18));
+            Area shape10 = new Area(new Rectangle(0, 0, DecisionFrame.width / 12, DecisionFrame.width / 12));
+            shape9.add(shape10);
+            excuseFrame.setShape(shape9);
             DecisionFrame.animateScale(DecisionFrame.width / 6, DecisionFrame.height / 9, excuseFrame);
 
 

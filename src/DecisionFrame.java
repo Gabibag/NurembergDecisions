@@ -35,7 +35,8 @@ public class DecisionFrame extends JFrame {
         this.setShape(shape1);
         setVisible(true);
     }
-    public static void animateMoving(int endX, int endY, String from, JFrame frame) {
+
+    public static void animateLeaving(int endX, int endY, String from, JFrame frame) {
         int moveSpeed;
         int currentX = frame.getX();
         int currentY = frame.getY();
@@ -45,8 +46,8 @@ public class DecisionFrame extends JFrame {
                 currentY = endY;
                 frame.setLocation(currentX, currentY);
                 frame.setVisible(true);
-                while (currentX < endX) {
-                    moveSpeed = easing(currentX, endX+currentX, false);
+                while (currentX <= endX) {
+                    moveSpeed = easing(currentX, endX + currentX, false);
                     currentX += moveSpeed;
                     frame.setLocation(currentX, currentY);
                     //wait for 10 milliseconds
@@ -79,7 +80,7 @@ public class DecisionFrame extends JFrame {
                 currentX = endX;
                 frame.setLocation(currentX, currentY);
                 frame.setVisible(true);
-                while (currentY <= endY) {
+                while (currentY < endY) {
                     moveSpeed = easing(currentY, endY - currentY, true);
                     currentY += moveSpeed;
                     frame.setLocation(currentX, currentY);
@@ -90,14 +91,95 @@ public class DecisionFrame extends JFrame {
                         e.printStackTrace();
                     }
                 }
+                frame.setLocation(endX, endY);
             }
             case "down" -> {
                 currentX = endX;
                 currentY = frame.getHeight();
                 frame.setLocation(currentX, currentY - frame.getHeight());
                 frame.setVisible(true);
-                while (currentY > endY) {
-                    moveSpeed = easing(currentY, endY-currentY, true);
+                while (currentY >= endY) {
+                    moveSpeed = easing(currentY, endY - currentY, true);
+                    currentY -= moveSpeed;
+                    frame.setLocation(currentX, currentY);
+                    //wait for 10 milliseconds
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            //if none of the above, then just set the location
+            default -> System.out.println("invalid direction \"" + from + "\"");
+        }
+        frame.dispose();
+    }
+
+    public static void animateMoving(int endX, int endY, String from, JFrame frame) {
+        int moveSpeed;
+        int currentX = frame.getX();
+        int currentY = frame.getY();
+        switch (from) {
+            case "left" -> {
+                currentX -= frame.getWidth();
+                currentY = endY;
+                frame.setLocation(currentX, currentY);
+                frame.setVisible(true);
+                while (currentX <= endX) {
+                    moveSpeed = easing(currentX, endX + currentX, false);
+                    currentX += moveSpeed;
+                    frame.setLocation(currentX, currentY);
+                    //wait for 10 milliseconds
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            case "right" -> {
+                currentX += frame.getWidth();
+                currentY = endY;
+                frame.setLocation(frame.getWidth(), currentY);
+                frame.setVisible(true);
+                while (currentX >= endX) {
+                    moveSpeed = easing(currentX, endX - currentX, false);
+                    currentX -= moveSpeed;
+                    System.out.println(currentX);
+                    frame.setLocation(currentX, currentY);
+                    //wait for 10 milliseconds
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            case "up" -> {
+                currentX = endX;
+                frame.setLocation(currentX, currentY);
+                frame.setVisible(true);
+                while (currentY < endY) {
+                    moveSpeed = easing(currentY, endY - currentY, true);
+                    currentY += moveSpeed;
+                    frame.setLocation(currentX, currentY);
+                    //wait for 10 milliseconds
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                frame.setLocation(endX, endY);
+            }
+            case "down" -> {
+                currentX = endX;
+                currentY = frame.getHeight();
+                frame.setLocation(currentX, currentY - frame.getHeight());
+                frame.setVisible(true);
+                while (currentY >= endY) {
+                    moveSpeed = easing(currentY, endY - currentY, true);
                     currentY -= moveSpeed;
                     frame.setLocation(currentX, currentY);
                     //wait for 10 milliseconds
@@ -112,6 +194,7 @@ public class DecisionFrame extends JFrame {
             default -> System.out.println("invalid direction \"" + from + "\"");
         }
     }
+
     public static void animateScale(int targetWidth, int targetHeight, JFrame frame) {
         int currentHeight = frame.getHeight();
         int currentWidth = frame.getWidth();
@@ -152,4 +235,5 @@ public class DecisionFrame extends JFrame {
         return Math.max( d + b/c, 2);
 
     }
+
 }

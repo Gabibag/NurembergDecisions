@@ -50,8 +50,9 @@ public class DecisionPanel extends JPanel {
         crime.setOpacity(0.9f);
         image.setOpacity(0.9f);
 
-        name.add(new JLabel("<HTML><h1>Name: " + p.getName() + " <h1/></HTML>"));
-        crime.add(new JLabel("<HTML><span>Crime: " + p.getCrime() + " <span/></HTML>"));
+        name.add(new JLabel("<HTML><div style='text-align:center'> <h1>Name: " + p.getName() + " <h1/> <div/></HTML>"));
+        crime.add(new JLabel(
+                "<HTML><div style='text-align:center'><span>Crime: " + p.getCrime() + " <span/><div/></HTML>"));
         image.add(imageIcon);
 //        image.pack();
 

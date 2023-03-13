@@ -62,8 +62,8 @@ public class DecisionFrame extends JFrame {
                 currentY = endY;
                 frame.setLocation(frame.getWidth(), currentY);
                 frame.setVisible(true);
-                while (currentX > endX) {
-                    moveSpeed = easing(currentX, endX-currentX, false);
+                while (currentX >= endX) {
+                    moveSpeed = easing(currentX, endX - currentX, false);
                     currentX -= moveSpeed;
                     System.out.println(currentX);
                     frame.setLocation(currentX, currentY);
@@ -79,8 +79,8 @@ public class DecisionFrame extends JFrame {
                 currentX = endX;
                 frame.setLocation(currentX, currentY);
                 frame.setVisible(true);
-                while (currentY < endY ) {
-                    moveSpeed = easing(currentY, endY-currentY, true);
+                while (currentY <= endY) {
+                    moveSpeed = easing(currentY, endY - currentY, true);
                     currentY += moveSpeed;
                     frame.setLocation(currentX, currentY);
                     //wait for 10 milliseconds

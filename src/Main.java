@@ -6,7 +6,9 @@ import java.util.ArrayList;
 public class Main {
     public static ArrayList<Person> people = new ArrayList<>();
     public static File verdicts = new File("src/verdicts.txt");
+    public static float opacityAmt = 0.9f;
     static DecisionFrame frame;
+    public static ArrayList<Person> unusedPeople = new ArrayList<>();
 
     public static void main(String[] args) {
         //region crimes
@@ -104,7 +106,7 @@ public class Main {
                               new Crime[]{HighAltitudeExperiment},
                               getImage("ruff")));
 
-        people.add(new Person("Kurt Baron von Schröder", new Verdict(true, "[years in prison]"),
+        people.add(new Person("Kurt Baron von Schröder", new Verdict(true, "hanging"),
                               new Crime[]{HighAltitudeExperiment, FreezingExperiment},
                               getImage("schroeder")));
 
@@ -121,7 +123,8 @@ public class Main {
         people.add(new Person("Viktor Brack", new Verdict(true, "hanging"),
                               new Crime[]{MemberOfSS, SterilizationExperiments, Euthanasia}, getImage("brack")));
         //endregion
-
+        //add all persons in people to unused people
+        unusedPeople.addAll(people);
 
         frame = new DecisionFrame();
         DecisionPanel.frames.add(frame);
@@ -134,6 +137,11 @@ public class Main {
         if (imgURL == null) {
             System.out.println("You really should use.jpg files. file : src/images/" + path + ".png");
             imgURL = Main.class.getResource("images/" + path + ".png");
+            if (imgURL == null) {
+                System.out.println(
+                        "There doesn't seem to be a file for " + path + " in the images folder. Using default image.");
+                return getImage("noimage");
+            }
         }
 
         Toolkit tk = Toolkit.getDefaultToolkit();

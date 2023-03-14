@@ -26,8 +26,7 @@ public class DecisionFrame extends JFrame {
         setUndecorated(true);
         this.add(new DecisionPanel());
         //setOpacity(0.5f);
-        this.setOpacity(0.9f);
-        this.setBackground(new Color(52, 78, 65, 0));
+        this.setOpacity(Main.opacityAmt);
 //        this.setShape(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 28, 28));
         Area shape2 = new Area(
                 new RoundRectangle2D.Double(0, this.getHeight() / 2 - 30, this.getWidth(), this.getHeight() / 2, 18,

@@ -13,13 +13,11 @@ import java.util.ArrayList;
 import java.util.Random;
 public class DecisionPanel extends JPanel {
     Person p;
-    public static ArrayList<Person> unusedPeople = new ArrayList<>();
+
     static Random r = new Random();
     public static ArrayList<JFrame> frames = new ArrayList<>();
 
     public DecisionPanel() {
-        unusedPeople.addAll(Main.people);
-
 
 
         //create a panel that has two buttons, a place for an image, and a place for text
@@ -49,15 +47,12 @@ public class DecisionPanel extends JPanel {
         crime.setUndecorated(true);
         crime.setAlwaysOnTop(true);
         image.setAlwaysOnTop(true);
+        Color popout = new Color(218, 215, 205, 100);
 
-        name.setBackground(new Color(52, 78, 65, 100));
-        crime.setBackground(new Color(52, 78, 65, 100));
-        this.setBackground(new Color(52, 78, 65, 100));
-        image.setBackground(new Color(52, 78, 65, 100));
 
-        name.setOpacity(0.9f);
-        crime.setOpacity(0.9f);
-        image.setOpacity(0.9f);
+        name.setOpacity(Main.opacityAmt);
+        crime.setOpacity(Main.opacityAmt);
+        image.setOpacity(Main.opacityAmt);
         /*
         * Area shape2 = new Area(
                 new RoundRectangle2D.Double(0, this.getHeight() / 2 - 30, this.getWidth(), this.getHeight() / 2, 18,
@@ -88,9 +83,17 @@ public class DecisionPanel extends JPanel {
         crime.setShape(shape6);
 
 
-        name.add(new JLabel("<HTML><div style='text-align:center'> <h1>Name: " + p.getName() + " <h1/> <div/></HTML>"));
-        crime.add(new JLabel(
-                "<HTML><div style='text-align:center'><span>Crime: " + p.getCrime() + " <span/><div/></HTML>"));
+        name.add(new JLabel("<HTML><div style='text-align:center; font-size: 20px'> <span>Name: " + p.getName() +
+                            " <span/> <div/></HTML>"));
+        if (p.getCrime().toString().length() < 166) {
+            crime.add(new JLabel(
+                    "<HTML><div style='text-align:center'><span>Crime: " + p.getCrime() + " <span/><div/></HTML>"));
+        }
+        else {
+            crime.add(new JLabel(
+                    "<HTML><div style='text-align:center; font-size: 6px'><span>Crime: " + p.getCrime() +
+                    " <span/><div/></HTML>"));
+        }
         image.add(imageIcon);
 //        image.pack();
 
@@ -108,7 +111,7 @@ public class DecisionPanel extends JPanel {
             excuseFrame.setAlwaysOnTop(true);
             excuseFrame.add(new JLabel("<HTML><span>" + p.getExcuse() + "<span/> </HTML>", SwingConstants.CENTER));
             excuseFrame.setUndecorated(true);
-            excuseFrame.setOpacity(0.9f);
+            excuseFrame.setOpacity(Main.opacityAmt);
             excuseFrame.setLocation(DecisionFrame.width / 3 + name.getWidth() + crime.getWidth(),
                                     DecisionFrame.height / 3);
             frames.add(excuseFrame);
@@ -137,6 +140,7 @@ public class DecisionPanel extends JPanel {
         JButton death = new JButton("Death Sentence");
         JButton jail = new JButton("Imprisonment");
         //add an on click listener to the buttons
+
         death.addActionListener(e -> {
             Verdict verdict = new Verdict();
             try {
@@ -157,7 +161,7 @@ public class DecisionPanel extends JPanel {
             frames.add(jailFrame);
             jailFrame.setAlwaysOnTop(true);
             jailFrame.setUndecorated(true);
-            jailFrame.setOpacity(0.9f);
+            jailFrame.setOpacity(Main.opacityAmt);
             jailFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3 + DecisionFrame.height / 3);
             //create a jlabel prompting the user as h1 text and style it as center aligned
             jailFrame.setLayout(new GridLayout(3, 1));
@@ -175,7 +179,7 @@ public class DecisionPanel extends JPanel {
             //make the drop down menu the same size as the frame
             jailTime.setPreferredSize(new Dimension(DecisionFrame.width / 6, DecisionFrame.height / 9));
             jailFrame.add(jailTime);
-            Button ok = new Button("OK");
+            Button ok = new Button("Submit");
             ok.addActionListener(e1 -> {
                 //depending on the option selected, create a new verdict in the format of (false, int yearNum) with corresponding time and don't save it
                 int yearNum = switch (jailTime.getSelectedIndex()) {
@@ -214,6 +218,7 @@ public class DecisionPanel extends JPanel {
 
         });
         //add death and jail buttons to the panel, with death on the left, and jail on the right
+
         this.add(death);
         this.add(jail);
 
@@ -226,18 +231,19 @@ public class DecisionPanel extends JPanel {
     public static Person getPerson() {
         //get a random person from the list of people
         int randomPerson;
-        if (unusedPeople.size() == 0) {
-            unusedPeople = Main.people;
+        if (Main.unusedPeople.size() == 0) {
+            Main.unusedPeople = Main.people;
             System.out.println(Main.people.size());
         }
-        if (unusedPeople.size() == 1) {
+        if (Main.unusedPeople.size() == 1) {
             randomPerson = 0;
-        }else {
-            randomPerson = r.nextInt(0, unusedPeople.size()-1);
         }
-        Person person = unusedPeople.get(randomPerson);
+        else {
+            randomPerson = r.nextInt(0, Main.unusedPeople.size() - 1);
+        }
+        Person person = Main.unusedPeople.get(randomPerson);
         //remove the person from the list of unused people
-        unusedPeople.remove(randomPerson);
+        Main.unusedPeople.remove(randomPerson);
         return person;
     }
     public static void disposeAllFrames() {
@@ -260,13 +266,13 @@ public class DecisionPanel extends JPanel {
         sentenceFrame.setLayout(new GridLayout(2, 1));
 
         sentenceFrame.setUndecorated(true);
-        sentenceFrame.setOpacity(0.9f);
+        sentenceFrame.setOpacity(Main.opacityAmt);
         sentenceFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3);
         frames.add(sentenceFrame);
         //create another Jframe telling the user how many times the verdict has been given using the numOfOccurrence method. only display if the verdict has been given more than 1 time, and give it in the format "This same verdict has been chosen (x) times"
         if (numOfOccurrence(p.getName() + ": " + p.getVerdict().getSentence()) > 1) {
             JFrame otherStats = new JFrame();
-            otherStats.setOpacity(0.9f);
+            otherStats.setOpacity(Main.opacityAmt);
             otherStats.setAlwaysOnTop(true);
             otherStats.add(new JLabel("<HTML><div style='text-align: center;'> <h1>This same verdict has been chosen " +
                                       numOfOccurrence(p.getName() + ": " + p.getVerdict().getSentence()) +

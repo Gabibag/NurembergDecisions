@@ -21,6 +21,7 @@ public class DecisionPanel extends JPanel {
         unusedPeople.addAll(Main.people);
 
 
+
         //create a panel that has two buttons, a place for an image, and a place for text
         this.setLayout(new GridLayout(2, 2));
         p = getPerson();
@@ -28,6 +29,7 @@ public class DecisionPanel extends JPanel {
         JFrame name = new JFrame();
         JFrame crime = new JFrame();
         JFrame image = new JFrame();
+
         frames.add(name);
         frames.add(crime);
         frames.add(image);
@@ -47,6 +49,12 @@ public class DecisionPanel extends JPanel {
         crime.setUndecorated(true);
         crime.setAlwaysOnTop(true);
         image.setAlwaysOnTop(true);
+
+        name.setBackground(new Color(52, 78, 65, 100));
+        crime.setBackground(new Color(52, 78, 65, 100));
+        this.setBackground(new Color(52, 78, 65, 100));
+        image.setBackground(new Color(52, 78, 65, 100));
+
         name.setOpacity(0.9f);
         crime.setOpacity(0.9f);
         image.setOpacity(0.9f);

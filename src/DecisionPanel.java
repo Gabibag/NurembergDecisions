@@ -91,7 +91,7 @@ public class DecisionPanel extends JPanel {
         }
         else {
             crime.add(new JLabel(
-                    "<HTML><div style='text-align:center; font-size: 6px'><span>Crime: " + p.getCrime() +
+                    "<HTML><div style='text-align:center; font-size: 10px'><span>Crime: " + p.getCrime() +
                     " <span/><div/></HTML>"));
         }
         image.add(imageIcon);
@@ -145,9 +145,11 @@ public class DecisionPanel extends JPanel {
             Verdict verdict = new Verdict();
             try {
                 Path path = Paths.get("src/verdicts.txt");
-                String verdictText = p.getName() + ": " + verdict.getSentence() + "\n";
-                System.out.println(numOfOccurrence(verdictText));
+                String verdictText = p.getName() + ": a death sentence\n";
+                System.out.println(numOfOccurrence(p.getName() + ": a death sentence") + " [" + p.getName() +
+                                   ": a death sentence]");
                 Files.write(path, (verdictText).getBytes(), StandardOpenOption.APPEND);
+                otherStat(verdictText);
 
             } catch (IOException ex) {
                 System.out.println("An error occurred.");
@@ -195,8 +197,9 @@ public class DecisionPanel extends JPanel {
                 try {
                     Path path = Paths.get("src/verdicts.txt");
                     String verdictText = p.getName() + ": " + verdict.getSentence() + "\n";
-                    System.out.println(numOfOccurrence(verdictText));
+                    System.out.println(numOfOccurrence(verdictText) + " [" + verdictText + "]");
                     Files.write(path, (verdictText).getBytes(), StandardOpenOption.APPEND);
+                    otherStat(verdictText);
 
                 } catch (IOException ex) {
                     System.out.println("An error occurred.");
@@ -212,7 +215,6 @@ public class DecisionPanel extends JPanel {
             Area shape12 = new Area(new Rectangle(0, 0, DecisionFrame.width / 3, DecisionFrame.width / 3));
             shape11.add(shape12);
             jailFrame.setShape(shape11);
-
             DecisionFrame.animateScale(DecisionFrame.width / 3, DecisionFrame.height / 3, jailFrame);
 
 
@@ -223,8 +225,25 @@ public class DecisionPanel extends JPanel {
         this.add(jail);
 
 
+    }
 
+    private void otherStat(String verdictText) {
+        if (numOfOccurrence(verdictText) >= 1) {
+            JFrame otherStats = new JFrame();
+            frames.add(otherStats);
+            otherStats.setOpacity(Main.opacityAmt);
+            otherStats.setAlwaysOnTop(true);
+            otherStats.add(new JLabel("<HTML><div style='text-align: center;'> <h1>This same verdict has been chosen " +
+                                      numOfOccurrence(p.getName() + ": " + p.getVerdict().getSentence()) +
+                                      " times<h1/> <div/> </HTML>", SwingConstants.CENTER));
+            //to the same location of the "excuse" frame
 
+            otherStats.setLocation(DecisionFrame.width / 3 + DecisionFrame.width / 3,
+                                   DecisionFrame.height / 3);
+            otherStats.setUndecorated(true);
+            otherStats.setVisible(true);
+            DecisionFrame.animateScale(DecisionFrame.width / 6, DecisionFrame.height / 9, otherStats);
+        }
     }
 
 
@@ -270,20 +289,7 @@ public class DecisionPanel extends JPanel {
         sentenceFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3);
         frames.add(sentenceFrame);
         //create another Jframe telling the user how many times the verdict has been given using the numOfOccurrence method. only display if the verdict has been given more than 1 time, and give it in the format "This same verdict has been chosen (x) times"
-        if (numOfOccurrence(p.getName() + ": " + p.getVerdict().getSentence()) > 1) {
-            JFrame otherStats = new JFrame();
-            otherStats.setOpacity(Main.opacityAmt);
-            otherStats.setAlwaysOnTop(true);
-            otherStats.add(new JLabel("<HTML><div style='text-align: center;'> <h1>This same verdict has been chosen " +
-                                      numOfOccurrence(p.getName() + ": " + p.getVerdict().getSentence()) +
-                                      " times<h1/> <div/> </HTML>", SwingConstants.CENTER));
-            //to the same location of the "excuse" frame
 
-            otherStats.setLocation(DecisionFrame.width / 3 + DecisionFrame.width / 3,
-                                   DecisionFrame.height / 3);
-            otherStats.setUndecorated(true);
-            DecisionFrame.animateScale(DecisionFrame.width / 6, DecisionFrame.height / 9, otherStats);
-        }
         DecisionFrame.animateScale(DecisionFrame.width / 3, DecisionFrame.height / 3, sentenceFrame);
 
     }

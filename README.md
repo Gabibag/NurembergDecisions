@@ -2,9 +2,9 @@
 \
 History project for school.
 
-The project shows the crimes people have committed during the Holocaust and how they were punished.
-It does this by showing information about some people who were tried in the trials, and the crimes they committed. 
-The user then choose a punishment for the crime, and the program will tell the user what the punishment actually was, while saving their choice in a file.(Also the ui is kinda bad but shhh.)
+This project is meant to simulate the nuremberg trials with the user being the judge. The way this works is the user then choose a punishment for a crime of a random person in the Nuremberg Trials. The program will then tell the user what the punishment actually was, while saving their choice in a file. This can be later refrenced and compared.
+\
+Note: Ui needs *LOT* of work
 
 
 ### Installation
@@ -16,6 +16,7 @@ The user then choose a punishment for the crime, and the program will tell the u
 
 ### Looking at Verdicts
 1. Open your command line (terminal if mac, command prompt if windows)
-2. CD to the directory that the jar is in.
+2. CD to the directory that the jar is in. 
+    - Don't know what that means? In your command line, type in `cd` (with a space after it)  and drag and drop the **folder** in which NurembergChoices.jar is. Then hit enter.
 3. Run `jar xf jar-file NurembergChoices.jar`
 4. Find the `verdicts.txt` file and open it, the others (except for the NurembergChoices.jar file) can be deleted.

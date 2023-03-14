@@ -13,6 +13,7 @@ public class DecisionFrame extends JFrame {
         g.drawImage(Main.getImage("test-image"), 0, 0, this);
     }
     public DecisionFrame() {
+
         //get dimensions of screen
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

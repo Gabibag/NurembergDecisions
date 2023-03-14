@@ -130,6 +130,16 @@ public class DecisionPanel extends JPanel {
         JButton jail = new JButton("Imprisonment");
         //add an on click listener to the buttons
         death.addActionListener(e -> {
+            Verdict verdict = new Verdict();
+            try {
+                Path path = Paths.get("src/verdicts.txt");
+                String verdictText = p.getName() + ": " + verdict.getSentence() + "\n";
+                System.out.println(numOfOccurrence(verdictText));
+                Files.write(path, (verdictText).getBytes(), StandardOpenOption.APPEND);
+
+            } catch (IOException ex) {
+                System.out.println("An error occurred.");
+            }
             displayActualSentence(p);
         });
         jail.addActionListener(e -> {
@@ -140,7 +150,7 @@ public class DecisionPanel extends JPanel {
             jailFrame.setAlwaysOnTop(true);
             jailFrame.setUndecorated(true);
             jailFrame.setOpacity(0.9f);
-            jailFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3);
+            jailFrame.setLocation(DecisionFrame.width / 3, DecisionFrame.height / 3 + DecisionFrame.height / 3);
             //create a jlabel prompting the user as h1 text and style it as center aligned
             jailFrame.setLayout(new GridLayout(3, 1));
             //if p.getname is longer than 20 characters, make the font smaller
@@ -172,7 +182,7 @@ public class DecisionPanel extends JPanel {
                 Verdict verdict = new Verdict(false, yearNum);
                 try {
                     Path path = Paths.get("src/verdicts.txt");
-                    String verdictText = p.getName() + ": " + verdict.getSentence();
+                    String verdictText = p.getName() + ": " + verdict.getSentence() + "\n";
                     System.out.println(numOfOccurrence(verdictText));
                     Files.write(path, (verdictText).getBytes(), StandardOpenOption.APPEND);
 
@@ -184,6 +194,12 @@ public class DecisionPanel extends JPanel {
 
             });
             jailFrame.add(ok);
+            //add rounded bottom corners to the frame
+            Area shape11 = new Area(
+                    new RoundRectangle2D.Double(0, 0, DecisionFrame.width / 3, DecisionFrame.width / 3, 18, 18));
+            Area shape12 = new Area(new Rectangle(0, 0, DecisionFrame.width / 3, DecisionFrame.width / 3));
+            shape11.add(shape12);
+            jailFrame.setShape(shape11);
 
             DecisionFrame.animateScale(DecisionFrame.width / 3, DecisionFrame.height / 3, jailFrame);
 

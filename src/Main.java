@@ -10,6 +10,7 @@ public class Main {
 
 
     public static void main(String[] args) {
+
         Crime FreezingExperiment = new Crime(
                 "Investigated treatments for persons who had been severely chilled, using prisoners at the Dachau camp as test subjects.");
         Crime SkeletonConstruction = new Crime(

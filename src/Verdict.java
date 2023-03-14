@@ -11,8 +11,7 @@ public class Verdict {
         this.wayKilled = wayKilled;
     }
     public Verdict() {
-        this.isDeathSentence = false;
-        this.isGuilty = false;
+        this.isDeathSentence = true;
     }
 
     public String getSentence(){//don't add space before

@@ -18,5 +18,5 @@ Note: Ui needs *LOT* of work
 1. Open your command line (terminal if mac, command prompt if windows)
 2. CD to the directory that the jar is in. 
     - Don't know what that means? In your command line, type in `cd` (with a space after it)  and drag and drop the **folder** in which NurembergChoices.jar is. Then hit enter.
-3. Run `jar xf jar-file NurembergChoices.jar`
+3. Run `jar xf NurembergChoices.jar`
 4. Find the `verdicts.txt` file and open it, the others (except for the NurembergChoices.jar file) can be deleted.

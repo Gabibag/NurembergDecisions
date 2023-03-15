@@ -9,7 +9,7 @@ Note: Ui needs *LOT* of work
 
 ### Installation
 
-1. Head over to the [releases tab](https://github.com/Gabibag/NurembergDecisions/releases/tag/new) and download the file that says .jar
+1. Head over to the [releases tab](https://github.com/Gabibag/NurembergDecisions/releases) and download the file that says .jar.
 2. Move it into a folder. Name the folder whatever you want, it doesn't matter. This is to keep the verdics.txt file and the .jar file together. This step isn't exacly *necessary*, but very usefull for later.
 3. Once download, double click to run it. 
 

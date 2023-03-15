@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -132,6 +133,27 @@ public class Main {
         //endregion
         //add all persons in people to unused people
         unusedPeople.addAll(people);
+
+        //create a new jframe explaining the game
+        JFrame explain = new JFrame("How to:");
+        explain.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        explain.setResizable(false);
+        //set size to a third of the screen
+        explain.setSize(((int) (Toolkit.getDefaultToolkit().getScreenSize().width / 4.5)),
+                        ((int) (Toolkit.getDefaultToolkit().getScreenSize().height / 4.5)));
+        //set location to the top left corner
+        explain.setLocation(0, 0);
+        //create a new panel to hold the text
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 1));
+        JLabel text = new JLabel();
+        text.setText(
+                "<HTML><div style='text-align:center'><h1> What is this?<h1/><div/> <span>This is a \"simulation\" of the Nuremberg Trials. You are given a person and a crime they have committed. You must decide what their sentence shall be. This will be saved to a file.<span/><HTML/>");
+
+        panel.add(text);
+        explain.setUndecorated(true);
+        explain.add(panel);
+        explain.setVisible(true);
 
         frame = new DecisionFrame();
         DecisionPanel.frames.add(frame);

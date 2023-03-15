@@ -10,13 +10,9 @@ Note: Ui needs *LOT* of work
 ### Installation
 
 1. Head over to the [releases tab](https://github.com/Gabibag/NurembergDecisions/releases/tag/new) and download the file that says .jar
-2. Once download, double click to run it.
+2. Move it into a folder. Name the folder whatever you want, it doesn't matter. This is to keep the verdics.txt file and the .jar file together. This step isn't exacly *necessary*, but very usefull for later.
+3. Once download, double click to run it. 
 
 **Note:** Make sure Java 19 is installed on your device. This should already be done on Macos.
 
-### Looking at Verdicts
-1. Open your command line (terminal if mac, command prompt if windows)
-2. CD to the directory that the jar is in. 
-    - Don't know what that means? In your command line, type in `cd` (with a space after it)  and drag and drop the **folder** in which NurembergChoices.jar is. Then hit enter.
-3. Run `jar xf NurembergChoices.jar`
-4. Find the `verdicts.txt` file and open it, the others (except for the NurembergChoices.jar file) can be deleted.
+

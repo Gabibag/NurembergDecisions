@@ -1,17 +1,24 @@
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class Main {
     public static ArrayList<Person> people = new ArrayList<>();
-    public static File verdicts = new File("src/verdicts.txt");
+    public static File verdicts;
     public static float opacityAmt = 0.9f;
     static DecisionFrame frame;
     public static ArrayList<Person> unusedPeople = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //region crimes
+        //check if there is a verdicts.txt file outside the jar
+        verdicts = new File("verdicts.txt");
+        if (verdicts.createNewFile()) {
+            System.out.println("verdicts.txt does not exist, creating one now");
+        }
+        System.out.println("verdicts.txt exists");
         Crime Euthanasia = new Crime(
                 "Involved the secret killing of the aged, insane, incurably ill, deformed children, and others, beginning at asylums in Germany and later in the camps and occupied territories.");
         Crime FreezingExperiment = new Crime(
